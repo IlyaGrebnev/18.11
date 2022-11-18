@@ -9,19 +9,18 @@
 using System;
 public class PrimeGenerator
 {
-    private static int s;
     private static bool[] f;
-    private static int[] primes;
+    private static int[] result;
     public static int[] GeneratePrimeNumbers(int maxValue)
     {
         if (maxValue < 2)
             return new int[0];
         else
         {
-            InitializeSieve(maxValue);
-            Sieve();
-            LoadPrimes();
-            return primes; // вернуть простые числа
+            InitializeArrayOfIntegers(maxValue);
+            CrossOutMultiples();
+            PutUncrossedIntegersIntoResult();
+            return result;
         }
     }
     private static void LoadPrimes()
@@ -56,16 +55,12 @@ public class PrimeGenerator
             }
         }
     }
-    private static void InitializeSieve(int maxValue)
+    private static void InitializeArrayOfIntegers(int maxValue)
     {
         // объявления
-        s = maxValue + 1; // размер массива
-        f = new bool[s];
-        int i;
-        // инициализировать элементы массива значением true.
-        for (i = 0; i < s; i++)
+        f = new bool[maxValue + 1];
+        f[0] = f[1] = false; //не простые числа и не кратные
+        for (int i = 2; i < f.Length; i++)
             f[i] = true;
-        // исключить заведомо не простые числа
-        f[0] = f[1] = false;
     }
 }
